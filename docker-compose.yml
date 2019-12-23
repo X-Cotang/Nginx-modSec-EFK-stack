@@ -1,0 +1,65 @@
+version: "3.7"
+services:
+  web:
+    container_name: web-nginx
+    build: ./Nginx
+    ports: 
+      - "8088:80"
+    restart: always
+    volumes:
+      - ./html:/var/www/html
+      - ./Nginx/log:/var/log
+    depends_on: 
+      - php
+      - mysql
+
+  php:
+    container_name: php-fpm
+    build: ./php-fpm
+    restart: always
+    volumes: 
+      - ./html:/var/www/html
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    environment: 
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=default-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=userpassword
+
+  fluentd:
+    container_name: fluentd
+    build: ./fluentd
+    restart: always
+    volumes: 
+      - ./Nginx/log:/home/log
+
+  my-elastic:
+    container_name: my-elastic
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.5.0"
+    hostname: elastic
+    restart: always
+    ports: 
+      - "9200:9200"
+      - "9300:9300"
+    environment: 
+      - discovery.type=single-node
+
+  my-kibana:
+    container_name: my-kibana
+    image: "docker.elastic.co/kibana/kibana:7.5.0"
+    hostname: kibana
+    restart: always
+    ports: 
+      - "5601:5601"
+    links:
+      - "my-elastic:elasticsearch"
+
+
+
+
+
+
+# cần ánh xạ thư mục html vào cả 2 service
