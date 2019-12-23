@@ -40,7 +40,8 @@ COPY ./config/modsecurity.conf /etc/nginx/modsec/modsecurity.conf
 COPY ./config/main.conf /etc/nginx/modsec/main.conf
 COPY ./config/default.conf /etc/nginx/conf.d/default.conf
 
-RUN nginx -t && nginx -s reload
 
 RUN rm -rf /home/*
+
+CMD ["nginx", "-g", "daemon off;"]
 
