@@ -13,6 +13,8 @@ RUN docker-php-ext-install mbstring
 RUN apt-get install -y libzip-dev
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
+ 
 
 CMD ["php-fpm"]
-#  allow_url_include: enable /usr/local/etc/php/php.ini
+
+#  allow_url_include: enable /usr/local/etc/php/php.ini copy devolop to ini
