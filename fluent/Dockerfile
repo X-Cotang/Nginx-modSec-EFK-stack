@@ -7,6 +7,6 @@ USER root
 
 RUN gem install fluent-plugin-elasticsearch 
 RUN gem install fluent-plugin-http
-RUN chmod -R 777 /home/log
+#RUN chmod -R 777 /home/log
 RUN chmod -R 777 /var/log
 COPY ./fluent.conf /fluentd/etc/
