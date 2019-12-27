@@ -1,5 +1,4 @@
-FROM fluent/fluentd:v1.7-debian-1
-
+FROM fluent/fluentd
 # Use root account to use apt
 USER root
 
@@ -8,4 +7,5 @@ USER root
 RUN gem install fluent-plugin-elasticsearch 
 RUN gem install fluent-plugin-http
 RUN gem install fluent-plugin-tdlog
+
 COPY ./fluent.conf /fluentd/etc/

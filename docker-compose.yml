@@ -1,4 +1,13 @@
-version: "3.7"
+version: "3.3"
+volumes: 
+  log:
+    driver_opts: 
+      devices: ./Nginx/log/
+      o: bind
+  html:
+    driver_opts: 
+      devices: ./html/
+      o: bind
 services:
   web:
     container_name: web-nginx
@@ -7,8 +16,8 @@ services:
       - "8088:80"
     restart: always
     volumes:
-      - ./html:/var/www/html
-      - ./Nginx/log:/var/log
+      - html:/var/www/html/
+      - log:/var/log/
     depends_on: 
       - php
       - mysql
@@ -18,7 +27,7 @@ services:
     build: ./php-fpm
     restart: always
     volumes: 
-      - ./html:/var/www/html
+      - html:/var/www/html/
   mysql:
     container_name: mysql
     image: mysql:latest
@@ -28,13 +37,14 @@ services:
       - MYSQL_DATABASE=default-db
       - MYSQL_USER=user
       - MYSQL_PASSWORD=userpassword
+    # anh xa file my.cnf
 
   fluentd:
     container_name: fluentd
     build: ./fluent
     restart: always
     volumes: 
-      - ./Nginx/log:/home/log
+      - log:/home/log/
 
   my-elastic:
     container_name: my-elastic
