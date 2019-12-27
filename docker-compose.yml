@@ -2,10 +2,12 @@ version: "3.3"
 volumes: 
   log:
     driver_opts: 
+      type: "nfs"
       device: ./Nginx/log/
       o: bind
   html:
     driver_opts: 
+      type: "nfs"
       device: ./html/
       o: bind
 services:
