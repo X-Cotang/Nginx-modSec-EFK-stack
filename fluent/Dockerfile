@@ -7,4 +7,5 @@ USER root
 # you may customize including plugins as you wish
 RUN gem install fluent-plugin-elasticsearch 
 RUN gem install fluent-plugin-http
+RUN gem install fluent-plugin-tdlog
 COPY ./fluent.conf /fluentd/etc/
