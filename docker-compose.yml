@@ -34,7 +34,7 @@ services:
   fluentd:
     container_name: fluentd
     build: ./fluent
-    restart: always
+    #restart: always
     volumes: 
       - ./Nginx/log/:/home/log/
 
