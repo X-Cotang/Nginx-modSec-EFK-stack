@@ -2,11 +2,11 @@ version: "3.3"
 volumes: 
   log:
     driver_opts: 
-      devices: ./Nginx/log/
+      device: ./Nginx/log/
       o: bind
   html:
     driver_opts: 
-      devices: ./html/
+      device: ./html/
       o: bind
 services:
   web:
