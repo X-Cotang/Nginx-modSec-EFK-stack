@@ -1,15 +1,5 @@
 version: "3.3"
-volumes: 
-  log:
-    driver_opts: 
-      type: "nfs"
-      device: ./Nginx/log/
-      o: bind
-  html:
-    driver_opts: 
-      type: "nfs"
-      device: ./html/
-      o: bind
+
 services:
   web:
     container_name: web-nginx
@@ -18,8 +8,8 @@ services:
       - "8088:80"
     restart: always
     volumes:
-      - html:/var/www/html/
-      - log:/var/log/
+      - ./html/:/var/www/html/
+      - ./Nginx/log/:/var/log/
     depends_on: 
       - php
       - mysql
@@ -29,7 +19,7 @@ services:
     build: ./php-fpm
     restart: always
     volumes: 
-      - html:/var/www/html/
+      - ./html/:/var/www/html/
   mysql:
     container_name: mysql
     image: mysql:latest
@@ -46,7 +36,7 @@ services:
     build: ./fluent
     restart: always
     volumes: 
-      - log:/home/log/
+      - ./Nginx/log/:/home/log/
 
   my-elastic:
     container_name: my-elastic
